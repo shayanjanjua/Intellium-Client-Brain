@@ -6,7 +6,11 @@ from modules.product_roadmap import generate_product_prompt
 from modules.marketing_plan import generate_marketing_prompt
 # from utils.gemini_api import generate_gemini_response  # Gemini temporarily disabled
 
-st.set_page_config(page_title="Intellium Client Brain", layout="wide")
+try:
+    st.set_page_config(page_title="Intellium Client Brain", layout="wide", page_icon="🧠")
+except Exception as e:
+    st.error(f"Error setting page config: {e}")
+    st.set_page_config(page_title="Intellium Client Brain", layout="wide")  # Fallback without page_icon
 
 st.title("🧠 Intellium Client Brain")
 st.subheader("Generate AI-Powered Strategies, MVP Plans & Content That Close Deals")
@@ -55,15 +59,10 @@ if prompt:
     st.markdown("### 📋 Generated Prompt")
     st.code(prompt, language="markdown")
 
-    # 📋 Show true copy-to-clipboard button via custom Streamlit markdown + JS hack
-    st.markdown("""
-    <button onclick="navigator.clipboard.writeText(document.getElementById('copy-target').innerText)"
-            style="margin-top: 10px; padding: 0.5em 1em; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">
-        📋 Copy Prompt to Clipboard
-    </button>
-    <pre id='copy-target' style='display: none;'>
-    {}</pre>
-    """.format(prompt), unsafe_allow_html=True)
+    # Use Streamlit's native copy-to-clipboard instead of custom HTML/JS
+    if st.button("📋 Copy Prompt to Clipboard"):
+        st.copy_to_clipboard(prompt)
+        st.success("Prompt copied to clipboard!")
 
     # Gemini functionality disabled for now
     # if st.button("🚀 Run with Gemini AI"):
