@@ -1,5 +1,3 @@
-# File: app.py
-
 import streamlit as st
 from modules.strategy_generator import generate_strategy_prompt
 from modules.product_roadmap import generate_product_prompt
@@ -9,10 +7,10 @@ from modules.marketing_plan import generate_marketing_prompt
 # 🧠 App config
 st.set_page_config(page_title="Intellium Client Brain", layout="wide")
 
-# ✅ Sidebar logo (make sure logo.png exists in /assets/)
+# ✅ Sidebar logo (make sure logo.png is in same folder as app.py)
 try:
     st.sidebar.image("logo.png", use_container_width=True)
-except:
+except FileNotFoundError:
     st.sidebar.markdown("## 🧠 Intellium")
 
 # 🎯 App header
