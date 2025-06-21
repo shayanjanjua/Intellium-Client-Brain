@@ -1,18 +1,12 @@
+# File: app.py
+
 import streamlit as st
-from PIL import Image
 from modules.strategy_generator import generate_strategy_prompt
 from modules.product_roadmap import generate_product_prompt
 from modules.marketing_plan import generate_marketing_prompt
 # from utils.gemini_api import generate_gemini_response  # Gemini temporarily disabled
 
 st.set_page_config(page_title="Intellium Client Brain", layout="wide")
-
-# ✅ Add logo to sidebar (top position)
-try:
-    logo = Image.open("logo.png")  # Make sure logo.png is in the same folder as app.py
-    st.sidebar.image(logo, use_container_width=True)
-except Exception:
-    st.sidebar.markdown("## 🧠 Intellium")
 
 st.title("🧠 Intellium Client Brain")
 st.subheader("Generate AI-Powered Strategies, MVP Plans & Content That Close Deals")
