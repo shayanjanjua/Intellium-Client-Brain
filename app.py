@@ -11,7 +11,7 @@ st.set_page_config(page_title="Intellium Client Brain", layout="wide")
 
 # ✅ Sidebar logo (make sure logo.png exists in /assets/)
 try:
-    st.sidebar.image("assets/logo.png", use_container_width=True)
+    st.sidebar.image("logo.png", use_container_width=True)
 except:
     st.sidebar.markdown("## 🧠 Intellium")
 
