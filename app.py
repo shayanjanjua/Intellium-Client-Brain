@@ -6,16 +6,20 @@ from modules.product_roadmap import generate_product_prompt
 from modules.marketing_plan import generate_marketing_prompt
 # from utils.gemini_api import generate_gemini_response  # Gemini temporarily disabled
 
+# 🧠 App config
 st.set_page_config(page_title="Intellium Client Brain", layout="wide")
 
-# ✅ Sidebar logo
-st.sidebar.image("assets/logo.png", use_container_width=True)
+# ✅ Sidebar logo (make sure logo.png exists in /assets/)
+try:
+    st.sidebar.image("assets/logo.png", use_container_width=True)
+except:
+    st.sidebar.markdown("## 🧠 Intellium")
 
-# 🧠 Title and subtitle
+# 🎯 App header
 st.title("🧠 Intellium Client Brain")
 st.subheader("Generate AI-Powered Strategies, MVP Plans & Content That Close Deals")
 
-# 🎯 Client Type selector
+# 🎯 Client Type dropdown
 client_type = st.sidebar.selectbox(
     "Select Client Type",
     ["Tech Startup", "Healthcare Company", "E-commerce Brand", "Logistics Firm", "SaaS Platform"]
@@ -58,12 +62,12 @@ elif use_case == "Marketing Content Plan":
         else:
             prompt = generate_marketing_prompt(topic, platform, tone)
 
-# 📋 Display and copy prompt
+# 📋 Display & Copy Prompt
 if prompt:
     st.markdown("### 📋 Generated Prompt")
     st.code(prompt, language="markdown")
 
-    # 📋 Copy to clipboard button using JS
+    # ✅ Copy button using JavaScript
     st.markdown(f"""
     <button onclick="navigator.clipboard.writeText(document.getElementById('copy-target').innerText)"
             style="margin-top: 10px; padding: 0.5em 1em; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">
@@ -72,7 +76,7 @@ if prompt:
     <pre id='copy-target' style='display: none;'>{prompt}</pre>
     """, unsafe_allow_html=True)
 
-    # 🚀 Gemini button disabled for now
+    # Gemini output disabled
     # if st.button("🚀 Run with Gemini AI"):
     #     with st.spinner("Thinking with Gemini..."):
     #         response = generate_gemini_response(prompt)
