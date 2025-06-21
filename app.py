@@ -8,19 +8,29 @@ from modules.marketing_plan import generate_marketing_prompt
 
 st.set_page_config(page_title="Intellium Client Brain", layout="wide")
 
+# ✅ Sidebar logo
+try:
+    st.sidebar.image("assets/logo.png", use_container_width=True)
+except:
+    st.sidebar.markdown("## 🧠 Intellium Client Brain")
+
+# 🧠 Title and subtitle
 st.title("🧠 Intellium Client Brain")
 st.subheader("Generate AI-Powered Strategies, MVP Plans & Content That Close Deals")
 
+# 🎯 Client Type selector
 client_type = st.sidebar.selectbox(
     "Select Client Type",
     ["Tech Startup", "Healthcare Company", "E-commerce Brand", "Logistics Firm", "SaaS Platform"]
 )
 
+# 🧩 Use Case selector
 use_case = st.sidebar.radio(
     "What do you want to generate?",
     ["Client Strategy Draft", "Product MVP Roadmap", "Marketing Content Plan"]
 )
 
+# 🔧 Prompt generation logic
 prompt = ""
 
 if use_case == "Client Strategy Draft":
@@ -51,21 +61,21 @@ elif use_case == "Marketing Content Plan":
         else:
             prompt = generate_marketing_prompt(topic, platform, tone)
 
+# 📋 Display and copy prompt
 if prompt:
     st.markdown("### 📋 Generated Prompt")
     st.code(prompt, language="markdown")
 
-    # 📋 Show true copy-to-clipboard button via custom Streamlit markdown + JS hack
-    st.markdown("""
+    # 📋 Copy to clipboard button using JS
+    st.markdown(f"""
     <button onclick="navigator.clipboard.writeText(document.getElementById('copy-target').innerText)"
             style="margin-top: 10px; padding: 0.5em 1em; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">
         📋 Copy Prompt to Clipboard
     </button>
-    <pre id='copy-target' style='display: none;'>
-    {}</pre>
-    """.format(prompt), unsafe_allow_html=True)
+    <pre id='copy-target' style='display: none;'>{prompt}</pre>
+    """, unsafe_allow_html=True)
 
-    # Gemini functionality disabled for now
+    # 🚀 Gemini button disabled for now
     # if st.button("🚀 Run with Gemini AI"):
     #     with st.spinner("Thinking with Gemini..."):
     #         response = generate_gemini_response(prompt)
